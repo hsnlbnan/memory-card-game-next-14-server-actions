@@ -1,38 +1,39 @@
+// @ts-ignore
 import type { ComponentType } from "react";
 import { motion, useSpring } from "framer-motion";
 import React, { useState, useRef, useEffect } from "react";
 
-// Learn more: https://www.framer.com/docs/guides/overrides/
-
-//Spring animation parameters
 const spring = {
   type: "spring",
   stiffness: 300,
   damping: 40,
 };
 
-/**
- * 3D Flip
- * Created By Joshua Guo
- *
- * @framerSupportedLayoutWidth fixed
- * @framerSupportedLayoutHeight fixed
- */
+interface ComponentProps {
+  width: number;
+  height: number;
+  variant: string;
+  style: object;
+}
 
-export function withClick(Component): ComponentType {
+export function withClick(
+  Component: ComponentType<ComponentProps>
+): ComponentType<ComponentProps> {
   return (props) => {
-    const [isFlipped, setIsFlipped] = useState(false);
+    const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
     const handleClick = () => {
       setIsFlipped((prevState) => !prevState);
     };
 
-    const [rotateXaxis, setRotateXaxis] = useState(0);
-    const [rotateYaxis, setRotateYaxis] = useState(0);
-    const ref = useRef(null);
+    const [rotateXaxis, setRotateXaxis] = useState<number>(0);
+    const [rotateYaxis, setRotateYaxis] = useState<number>(0);
+    const ref = useRef<HTMLDivElement | null>(null);
 
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event: { clientY: number; clientX: number }) => {
       const element = ref.current;
+      if (element === null) return;
+
       const elementRect = element.getBoundingClientRect();
       const elementWidth = elementRect.width;
       const elementHeight = elementRect.height;
