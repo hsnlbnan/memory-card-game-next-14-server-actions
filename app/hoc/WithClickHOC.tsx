@@ -1,4 +1,3 @@
-// @ts-ignore
 import type { ComponentType } from "react";
 import { motion, useSpring } from "framer-motion";
 import React, { useState, useRef, useEffect } from "react";
@@ -9,12 +8,12 @@ const spring = {
   damping: 40,
 };
 
-interface ComponentProps {
-  width: number;
-  height: number;
-  variant: string;
-  style: object;
-}
+type ComponentProps = {
+  width: string;
+  height: string;
+  style?: React.CSSProperties;
+  variant?: "Front" | "Back";
+};
 
 export function withClick(
   Component: ComponentType<ComponentProps>
