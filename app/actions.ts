@@ -38,7 +38,20 @@ export async function getScores() {
 
     const { rows } = scores;
 
-    console.log("ROWS", rows);
+    return rows;
+  } catch (e) {
+    console.log("ERROR", e);
+    return { message: "Failed to get scores" };
+  }
+}
+
+export async function getDailyScores() {
+  try {
+    const scores =
+      await sql`SELECT * FROM Game WHERE created_at > NOW() - INTERVAL '1 day' ORDER BY score DESC LIMIT 20`;
+
+    const { rows } = scores;
+
     return rows;
   } catch (e) {
     console.log("ERROR", e);

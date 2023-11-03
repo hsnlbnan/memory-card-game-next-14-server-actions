@@ -62,6 +62,7 @@ export const Modal = () => {
                       className="w-full border-gray-300 focus:ring-indigo-500 rounded-md shadow-sm text-md mb-2"
                       value={name}
                       onChange={handleName}
+                      required
                     />
 
                     <p className="text-[10px] text-gray-500 text-left">

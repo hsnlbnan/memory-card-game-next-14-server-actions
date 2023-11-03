@@ -2,10 +2,10 @@
 import { motion } from "framer-motion";
 import { Suspense, useEffect, useState } from "react";
 import TimerComponent from "../Timer";
-import { getScores } from "@/app/actions";
+import { getScores, getDailyScores } from "@/app/actions";
 
 let tabs = [
-  { id: "weekly", label: "Haftalık" },
+  { id: "weekly", label: "Günlük" },
   { id: "all-time", label: "Tüm Zamanlar" },
 ];
 
@@ -38,10 +38,20 @@ export default function LeaderBoard() {
   let [activeTab, setActiveTab] = useState(tabs[0].id);
 
   useEffect(() => {
-    const fetchScores = async () => {
-      const scores = await getScores();
-      if (Array.isArray(scores)) setLeaderBoard(scores);
-    };
+    let fetchScores;
+
+    if (activeTab === "weekly") {
+      fetchScores = async () => {
+        const scores = await getDailyScores();
+        if (Array.isArray(scores)) setLeaderBoard(scores);
+      };
+    } else {
+      fetchScores = async () => {
+        const scores = await getScores();
+        if (Array.isArray(scores)) setLeaderBoard(scores);
+      };
+    }
+
     fetchScores();
   }, []);
 
@@ -88,7 +98,7 @@ export default function LeaderBoard() {
             </div>
             <div className="flex items-end mt-5 justify-center relative z-10 ">
               <div className="flex items-center justify-center gap-2 flex-col z-10">
-                <Circle text="👑" />
+                <Circle text="🎉" />
                 <h4 className="text-center text-white text-sm font-semibold mt-2">
                   {leaderBoard[1].user_name}
                 </h4>
@@ -172,7 +182,7 @@ export default function LeaderBoard() {
                 </div>
               </div>
               <div className="flex items-center justify-center gap-2 flex-col ml-[-3px] z-10">
-                <Circle text="👑" />
+                <Circle text="🥳" />
                 <h4 className="text-center text-white text-sm font-semibold mt-2">
                   {leaderBoard[2].user_name}
                 </h4>
@@ -212,7 +222,7 @@ export default function LeaderBoard() {
               <div className="w-[840px] h-[840px] border border-[#796BE3] rounded-full absolute bottom-[-300px] left-1/2 transform -translate-x-1/2 z-[1] pointer-events-none"></div>
               <div className="w-[1040px] h-[1040px] border border-[#796BE3] rounded-full absolute bottom-[-400px] left-1/2 transform -translate-x-1/2 z-[1] pointer-events-none"></div>
             </div>
-            <div className="bg-[#EFEEFC] w-full relative z-10 max-w-[94%] mx-auto p-5 gap-5 flex flex-col rounded-[32px]">
+            <div className="bg-[#EFEEFC] w-full relative z-10 max-w-[88%] mx-auto p-5 gap-5 flex flex-col rounded-[32px]">
               {leaderBoard.slice(3).map((item, index) => (
                 <LeaderBoardItem
                   key={item.id}

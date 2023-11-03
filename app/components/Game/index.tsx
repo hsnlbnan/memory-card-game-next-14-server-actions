@@ -87,8 +87,8 @@ export const Game = () => {
   }, [matched, cards.length]);
 
   return (
-    <div className=" mx-auto h-screen max-w-[970px] w-full">
-      <div className="grid grid-cols-4 gap-4 h-full  p-6">
+    <div className="mx-auto h-[120vh] md:h-screen max-w-[970px] w-full">
+      <div className="grid grid-cols-3 md:grid-cols-4 gap-4 h-full  p-6">
         <AnimatePresence mode="exit">
           {cards.map((card, index) => (
             <Card
