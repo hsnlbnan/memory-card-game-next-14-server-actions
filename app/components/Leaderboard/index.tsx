@@ -40,7 +40,7 @@ export default function LeaderBoard() {
   useEffect(() => {
     const fetchScores = async () => {
       const scores = await getScores();
-      setLeaderBoard(scores);
+      if (Array.isArray(scores)) setLeaderBoard(scores);
     };
     fetchScores();
   }, []);
