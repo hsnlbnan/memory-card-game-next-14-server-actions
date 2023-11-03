@@ -86,8 +86,6 @@ export const Game = () => {
     }
   }, [matched, cards.length]);
 
-  console.log("CARDS", cards);
-
   return (
     <div className=" mx-auto h-screen max-w-[970px] w-full">
       <div className="grid grid-cols-4 gap-4 h-full  p-6">

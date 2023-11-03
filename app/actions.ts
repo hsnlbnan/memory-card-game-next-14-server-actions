@@ -19,7 +19,6 @@ export async function sendScore({ user_name, score, time }) {
     time,
   });
 
-  console.log("DATA", data);
   try {
     await sql`INSERT INTO Game (user_name, score, time) VALUES (${
       data.user_name
@@ -30,5 +29,19 @@ export async function sendScore({ user_name, score, time }) {
   } catch (e) {
     console.log("ERROR", e);
     return { message: "Failed to create todo" };
+  }
+}
+
+export async function getScores() {
+  try {
+    const scores = await sql`SELECT * FROM Game ORDER BY score DESC LIMIT 20`;
+
+    const { rows } = scores;
+
+    console.log("ROWS", rows);
+    return rows;
+  } catch (e) {
+    console.log("ERROR", e);
+    return { message: "Failed to get scores" };
   }
 }

@@ -3,6 +3,7 @@
 import { sendScore } from "@/app/actions";
 import { useGame } from "@/app/context/GameContext";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 export const Modal = () => {
   const { modal, setModal, name, handleName, score, time } = useGame();
@@ -12,7 +13,14 @@ export const Modal = () => {
       user_name: name,
       score,
       time,
-    });
+    })
+      .then(({ message }) => {
+        toast.success(message);
+        setModal(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
     setModal(false);
   };
 
