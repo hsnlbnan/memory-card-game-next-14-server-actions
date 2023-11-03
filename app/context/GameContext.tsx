@@ -6,6 +6,12 @@ type GameContextType = {
   startTime: () => void;
   stopTime: () => void;
   resetTimer: () => void;
+  name: string;
+  modal: boolean;
+  setModal: (value: boolean) => void;
+  handleName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setWrongGuesses: (value: number) => void;
+  score: number;
 };
 
 const GameContext = createContext<GameContextType>({} as GameContextType);
@@ -15,6 +21,20 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [time, setTime] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [modal, setModal] = useState<boolean>(false);
+  const [wrongGuesses, setWrongGuesses] = useState<number>(0);
+
+  let point = 1000;
+
+  const score =
+    wrongGuesses === 0
+      ? point - time / 1000
+      : point - (time / 1000) * (1 / wrongGuesses);
+
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -27,14 +47,29 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [isRunning]);
 
   const startTime = () => setIsRunning(true);
+
   const stopTime = () => setIsRunning(false);
+
   const resetTimer = () => {
     setTime(0);
     setIsRunning(false);
   };
 
   return (
-    <GameContext.Provider value={{ time, startTime, stopTime, resetTimer }}>
+    <GameContext.Provider
+      value={{
+        time,
+        startTime,
+        stopTime,
+        resetTimer,
+        name,
+        modal,
+        setModal,
+        handleName,
+        setWrongGuesses,
+        score,
+      }}
+    >
       {children}
     </GameContext.Provider>
   );

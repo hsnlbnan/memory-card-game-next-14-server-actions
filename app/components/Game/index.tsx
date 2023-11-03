@@ -10,9 +10,16 @@ export const Game = () => {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
-  const { startTime, stopTime } = useGame();
+  const {
+    startTime,
+    stopTime,
+    time,
+    setModal,
+    setWrongGuesses: setWrongGuesContext,
+  } = useGame();
+  const [wrongGuesses, setWrongGuesses] = useState(0);
+  let point;
 
-  // first click starts the timer
   useEffect(() => {
     if (flipped.length === 1) {
       startTime();
@@ -63,17 +70,23 @@ export const Game = () => {
       const [firstCard, secondCard] = flipped;
       if (cards[firstCard].type === cards[secondCard].type) {
         setMatched((prev) => [...prev, cards[firstCard].type]);
+      } else {
+        setWrongGuesses((prev) => prev + 1);
       }
       setTimeout(() => setFlipped([]), 1000);
     }
-  }, [flipped, cards]);
+  }, [flipped, cards.length]);
 
   useEffect(() => {
     if (matched.length === cards.length / 2 && matched.length !== 0) {
-      alert("Congratulations! You've matched all the cards!");
       stopTime();
+
+      setWrongGuesContext(wrongGuesses);
+      setModal(true);
     }
   }, [matched, cards.length]);
+
+  console.log("CARDS", cards);
 
   return (
     <div className=" mx-auto h-screen max-w-[970px] w-full">
