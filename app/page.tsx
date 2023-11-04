@@ -13,7 +13,6 @@ export default function Page() {
         <div className="w-full bg-gradient-to-r from-[#6B5AE0] to-[#4E42A9] flex flex-col items-center justify-center h-[100vh] md:w-3/4 md:h-[unset]">
           <Game />
         </div>
-        {/* 0 0 20px 10px #0000005c */}
         <div className="w-full md:w-1/4 md:h-screen shadow-[0 0 20px 10px #0000005c]">
           <LeaderBoard />
         </div>

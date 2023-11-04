@@ -13,12 +13,10 @@ export const Game = () => {
   const {
     startTime,
     stopTime,
-    time,
     setModal,
     setWrongGuesses: setWrongGuesContext,
   } = useGame();
   const [wrongGuesses, setWrongGuesses] = useState(0);
-  let point;
 
   useEffect(() => {
     if (flipped.length === 1) {
@@ -80,7 +78,6 @@ export const Game = () => {
   useEffect(() => {
     if (matched.length === cards.length / 2 && matched.length !== 0) {
       stopTime();
-
       setWrongGuesContext(wrongGuesses);
       setModal(true);
     }
@@ -88,8 +85,8 @@ export const Game = () => {
 
   return (
     <div className="mx-auto h-[120vh] md:h-screen max-w-[970px] w-full">
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-4 h-full  p-6">
-        <AnimatePresence mode="exit">
+      <AnimatePresence mode="exit">
+        <motion.div className="grid grid-cols-3 md:grid-cols-4 gap-4 h-full  p-6">
           {cards.map((card, index) => (
             <Card
               key={`${card.id}-${index}`}
@@ -100,8 +97,8 @@ export const Game = () => {
               img={card.img}
             />
           ))}
-        </AnimatePresence>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
