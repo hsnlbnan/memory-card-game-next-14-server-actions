@@ -12,6 +12,7 @@ type GameContextType = {
   handleName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setWrongGuesses: (value: number) => void;
   score: number;
+  wrongGuesses: number;
 };
 
 const GameContext = createContext<GameContextType>({} as GameContextType);
@@ -25,12 +26,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   const [modal, setModal] = useState<boolean>(false);
   const [wrongGuesses, setWrongGuesses] = useState<number>(0);
 
-  let point = 1000;
-
   const score =
     wrongGuesses === 0
-      ? point - time / 1000
-      : point - (time / 1000) * (1 / wrongGuesses);
+      ? 1000 - time / 1000
+      : //prettier-ignore
+        1000 - ((time / 1000) + (10.8 * wrongGuesses));
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -55,6 +55,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsRunning(false);
   };
 
+  console.log(score, wrongGuesses, time);
+
   return (
     <GameContext.Provider
       value={{
@@ -68,6 +70,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
         handleName,
         setWrongGuesses,
         score,
+        wrongGuesses,
       }}
     >
       {children}

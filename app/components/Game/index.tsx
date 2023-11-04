@@ -66,7 +66,7 @@ export const Game = () => {
       } else {
         setWrongGuesses((prev) => prev + 1);
       }
-      setTimeout(() => setFlipped([]), 300);
+      setTimeout(() => setFlipped([]), 800);
     }
   }, [flipped, cards.length]);
 
@@ -79,10 +79,37 @@ export const Game = () => {
     }
   }, [matched, cards.length]);
 
+  // useEffect(() => {
+  //   if (gameEnd) {
+  //     setCards(initializeDeck());
+  //     setFlipped([]);
+  //     setMatched([]);
+  //     setWrongGuesses(0);
+  //   } else {
+  //     setGameEnd(false);
+  //   }
+  // }, [gameEnd]);
+
+  function handleRestart() {
+    setCards(initializeDeck());
+    setFlipped([]);
+    setMatched([]);
+    setWrongGuesses(0);
+    setGameEnd(false);
+  }
+
+  function buttonHandler() {
+    setEndGame(true);
+    handleRestart();
+  }
+
   return (
     <div className="mx-auto h-[120vh] md:h-screen max-w-[970px] w-full relative">
       <AnimatePresence mode="exit">
-        <motion.div className="grid grid-cols-3 md:grid-cols-4 gap-4 h-full  p-6">
+        <motion.div
+          className="grid grid-cols-3 md:grid-cols-4 gap-4 h-full  p-6"
+          key={"cards"}
+        >
           {cards.map((card, index) => (
             <Card
               key={`${card.id}-${index}`}
@@ -96,6 +123,7 @@ export const Game = () => {
         </motion.div>
         {gameEnd && (
           <motion.div
+            key={"modal"}
             initial={{ opacity: 0, y: 0, x: "-50%" }}
             animate={{ opacity: 1, y: "-50%", x: "-50%" }}
             exit={{ opacity: 0, y: 0, x: "-50%", transition: { delay: 1.5 } }}
@@ -114,7 +142,7 @@ export const Game = () => {
                inset-0 z-10 bg-[#4E42A9] rounded-2xl px-4 py-3 text-white font-semibold text-lg 
                flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all
                 "
-              onClick={() => setGameEnd(false)}
+              onClick={buttonHandler}
               onMouseEnter={() => setBtnHover(true)}
               onMouseLeave={() => setBtnHover(false)}
               whileHover={{ scale: 1.1 }}

@@ -6,13 +6,16 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 export const Modal = () => {
-  const { modal, setModal, name, handleName, score, time } = useGame();
+  const { modal, setModal, name, handleName, score, time, wrongGuesses } =
+    useGame();
 
   const handleSendScore = () => {
     if (name.length < 3) {
       toast.error("İsim en az 3 karakter olmalıdır.");
       return;
     }
+
+    console.log(score, time, wrongGuesses);
 
     sendScore({
       user_name: name,
