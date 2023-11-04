@@ -46,7 +46,7 @@ const CardComponent = ({
       }}
     >
       <motion.div
-        className={`relative w-full max-h-[120px] md:max-h-[unset] h-full transform-style preserve-3d rounded-lg overflow-hidden shadow-lg`}
+        className={`relative w-full h-full transform-style preserve-3d rounded-lg overflow-hidden shadow-lg`}
         variants={[cardVariants, delayChildren]}
         animate={flipped || solved ? "back" : "front"}
         transition={{ duration: 0.6 }}

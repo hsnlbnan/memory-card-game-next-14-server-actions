@@ -9,7 +9,7 @@ import { Toaster } from "sonner";
 export default function Page() {
   return (
     <GameProvider>
-      <main className="flex items-center justify-center h-screen flex-col md:flex-row ">
+      <main className="flex items-center justify-center h-unset flex-col md:flex-row md:h-screen">
         <div className="w-full bg-gradient-to-r from-[#6B5AE0] to-[#4E42A9] flex flex-col items-center justify-center h-[100vh] md:w-3/4 md:h-[unset]">
           <Game />
         </div>

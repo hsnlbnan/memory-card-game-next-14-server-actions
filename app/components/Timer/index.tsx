@@ -17,7 +17,7 @@ const TimerComponent: React.FC = () => {
       .padStart(3, "0")
       .substring(0, 2);
 
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}:${formattedMilliseconds}`;
   };
 
   return (

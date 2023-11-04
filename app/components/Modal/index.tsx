@@ -9,6 +9,11 @@ export const Modal = () => {
   const { modal, setModal, name, handleName, score, time } = useGame();
 
   const handleSendScore = () => {
+    if (name.length < 3) {
+      toast.error("İsim en az 3 karakter olmalıdır.");
+      return;
+    }
+
     sendScore({
       user_name: name,
       score,

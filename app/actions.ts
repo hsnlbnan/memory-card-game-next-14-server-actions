@@ -48,7 +48,7 @@ export async function getScores() {
 export async function getDailyScores() {
   try {
     const scores =
-      await sql`SELECT * FROM Game WHERE created_at > NOW() - INTERVAL '1 day' ORDER BY score DESC LIMIT 20`;
+      await sql`SELECT * FROM Game WHERE DATE(created_at) = DATE(NOW()) ORDER BY score DESC LIMIT 20;`;
 
     const { rows } = scores;
 

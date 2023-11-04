@@ -103,22 +103,24 @@ export default function LeaderBoard() {
   let [activeTab, setActiveTab] = useState(tabs[0].id);
 
   useEffect(() => {
-    let fetchScores;
-
     if (activeTab === "weekly") {
-      fetchScores = async () => {
+      const fetchScores = async () => {
         const scores = await getDailyScores();
         if (Array.isArray(scores)) setLeaderBoard(scores);
       };
+
+      fetchScores();
     } else {
-      fetchScores = async () => {
+      const fetchScores = async () => {
         const scores = await getScores();
         if (Array.isArray(scores)) setLeaderBoard(scores);
       };
-    }
 
-    fetchScores();
-  }, []);
+      fetchScores();
+    }
+  }, [activeTab]);
+
+  console.log("leaderBoard", leaderBoard);
 
   return (
     <>
@@ -140,7 +142,7 @@ export default function LeaderBoard() {
             <TimerComponent />
           </motion.div>
           {/* <Suspense fallback={<div>Loading...</div>} /> */}
-          {leaderBoard.length > 0 && (
+          {leaderBoard?.length > 0 && (
             <div className="mt-5 h-full relative overflow-y-scroll">
               <motion.h3
                 initial={{ opacity: 0, y: 100 }}
@@ -205,7 +207,7 @@ export default function LeaderBoard() {
                     duration: 2,
                     type: "spring",
                     bounce: 0.2,
-                    delay: 2,
+                    delay: 2.2,
                   }}
                   className="flex items-center justify-center gap-2 flex-col z-10"
                 >
@@ -311,7 +313,7 @@ export default function LeaderBoard() {
                     duration: 2,
                     type: "spring",
                     bounce: 0.2,
-                    delay: 1,
+                    delay: 1.6,
                   }}
                   className="flex items-center justify-center gap-2 flex-col ml-[-3px] z-10"
                 >
@@ -361,9 +363,9 @@ export default function LeaderBoard() {
                   type: "spring",
                   bounce: 0.2,
                   delayChildren: 0.2,
-                  delay: 4,
+                  delay: 1.2,
                 }}
-                className="bg-[#EFEEFC] w-full relative z-10 max-w-[88%] mx-auto p-5 gap-5 flex flex-col rounded-[32px]"
+                className="bg-[#EFEEFC] w-full relative z-10 max-w-[93.2%] mx-auto p-5 gap-5 flex flex-col"
               >
                 {leaderBoard.slice(3).map((item, index) => (
                   <LeaderBoardItem
