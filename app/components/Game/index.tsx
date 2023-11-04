@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Card } from "..";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { useGame } from "@/app/context/GameContext";
+import { shuffle } from "@/app/utils";
 
 export const Game = () => {
   const [cards, setCards] = useState([]);
@@ -34,17 +35,6 @@ export const Game = () => {
     }
   };
 
-  const shuffle = (array) => {
-    let _array = array.slice(0);
-    for (let i = 0; i < array.length - 1; i++) {
-      let randomIndex = Math.floor(Math.random() * (i + 1));
-      let temp = _array[i];
-      _array[i] = _array[randomIndex];
-      _array[randomIndex] = temp;
-    }
-    return _array;
-  };
-
   const initializeDeck = () => {
     let id = 0;
     const cards = ["1", "2", "3", "4", "5", "6"].reduce((acc, type) => {
@@ -72,10 +62,11 @@ export const Game = () => {
       const [firstCard, secondCard] = flipped;
       if (cards[firstCard].type === cards[secondCard].type) {
         setMatched((prev) => [...prev, cards[firstCard].type]);
+        setFlipped([]);
       } else {
         setWrongGuesses((prev) => prev + 1);
       }
-      setTimeout(() => setFlipped([]), 1000);
+      setTimeout(() => setFlipped([]), 300);
     }
   }, [flipped, cards.length]);
 
