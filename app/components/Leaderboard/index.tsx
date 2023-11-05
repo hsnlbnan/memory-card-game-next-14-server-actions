@@ -106,21 +106,19 @@ export default function LeaderBoard() {
     if (activeTab === "weekly") {
       const fetchScores = async () => {
         const scores = await getDailyScores();
-        if (Array.isArray(scores)) setLeaderBoard(scores);
+        Array.isArray(scores) ? setLeaderBoard(scores) : setLeaderBoard([]);
       };
 
       fetchScores();
     } else {
       const fetchScores = async () => {
         const scores = await getScores();
-        if (Array.isArray(scores)) setLeaderBoard(scores);
+        Array.isArray(scores) ? setLeaderBoard(scores) : setLeaderBoard([]);
       };
 
       fetchScores();
     }
   }, [activeTab]);
-
-  console.log("leaderBoard", leaderBoard);
 
   return (
     <>
@@ -141,7 +139,7 @@ export default function LeaderBoard() {
           >
             <TimerComponent />
           </motion.div>
-          {/* <Suspense fallback={<div>Loading...</div>} /> */}
+          <Suspense fallback={<div>Loading...</div>} />
           {leaderBoard?.length > 0 && (
             <div className="mt-5 h-full relative overflow-y-scroll">
               <motion.h3
@@ -213,10 +211,10 @@ export default function LeaderBoard() {
                 >
                   <Circle text="🎉" />
                   <h4 className="text-center text-white text-sm font-semibold mt-2">
-                    {leaderBoard[1].user_name}
+                    {leaderBoard?.[1]?.user_name}
                   </h4>
                   <div className="px-3 py-2 bg-[#9087E5] text-white rounded-md inline-flex items-center justify-center">
-                    {leaderBoard[1].score} Puan
+                    {leaderBoard?.[1]?.score} Puan
                   </div>
 
                   <div className="relative mt-3">
@@ -261,10 +259,10 @@ export default function LeaderBoard() {
                 >
                   <Circle text="👑" />
                   <h4 className="text-center text-white text-sm font-semibold mt-2">
-                    {leaderBoard[0].user_name}
+                    {leaderBoard?.[0]?.user_name}
                   </h4>
                   <div className="px-3 py-2 bg-[#9087E5] text-white rounded-md inline-flex items-center justify-center">
-                    {leaderBoard[0].score} Puan
+                    {leaderBoard?.[0]?.score} Puan
                   </div>
                   {/* height 0 to 100% anim */}
                   <motion.div className="relative mt-3">
@@ -319,10 +317,10 @@ export default function LeaderBoard() {
                 >
                   <Circle text="🥳" />
                   <h4 className="text-center text-white text-sm font-semibold mt-2">
-                    {leaderBoard[2].user_name}
+                    {leaderBoard?.[2]?.user_name}
                   </h4>
                   <div className="px-3 py-2 bg-[#9087E5] text-white rounded-md inline-flex items-center justify-center">
-                    {leaderBoard[2].score} Puan
+                    {leaderBoard?.[2]?.score} Puan
                   </div>
 
                   <div className="relative mt-3">
@@ -367,14 +365,16 @@ export default function LeaderBoard() {
                 }}
                 className="bg-[#EFEEFC] w-full relative z-10 max-w-[93.2%] mx-auto p-5 gap-5 flex flex-col"
               >
-                {leaderBoard.slice(3).map((item, index) => (
-                  <LeaderBoardItem
-                    key={item.id}
-                    rank={index + 4}
-                    name={item.user_name}
-                    score={item.score}
-                  />
-                ))}
+                {leaderBoard
+                  ?.slice(3)
+                  .map((item, index) => (
+                    <LeaderBoardItem
+                      key={item.id}
+                      rank={index + 4}
+                      name={item.user_name}
+                      score={item.score}
+                    />
+                  ))}
               </motion.div>
             </div>
           )}

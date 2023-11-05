@@ -1,6 +1,6 @@
 {
   "node": {
-    "eb1e288f5daa7b5b16c59c16de9b89a4d40b5f1b": {
+    "dd48aebde90e9bd730f507c145697a877755f058": {
       "workers": {
         "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fhusnu%2FDesktop%2Fgithub%2Fnextj-14-learning%2Fapp%2Factions.ts%22%2C%5B%22sendScore%22%2C%22getDailyScores%22%2C%22getScores%22%5D%5D%5D&__client_imported__=true!"
       },
@@ -8,7 +8,7 @@
         "app/page": "action-browser"
       }
     },
-    "dd48aebde90e9bd730f507c145697a877755f058": {
+    "eb1e288f5daa7b5b16c59c16de9b89a4d40b5f1b": {
       "workers": {
         "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fhusnu%2FDesktop%2Fgithub%2Fnextj-14-learning%2Fapp%2Factions.ts%22%2C%5B%22sendScore%22%2C%22getDailyScores%22%2C%22getScores%22%5D%5D%5D&__client_imported__=true!"
       },
@@ -26,5 +26,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "2+YKfRZ2vkDrimz7bhQFZAs5LtO4ubjww4VtujsV70U="
+  "encryptionKey": "hLYdQ3uLpFD0ErinCaBmUEK1X49s7vePNyA7dexCkUU="
 }
