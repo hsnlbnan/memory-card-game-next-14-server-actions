@@ -196,7 +196,7 @@ export default function LeaderBoard() {
                   </button>
                 ))}
               </motion.div>
-              <div className="flex items-end mt-5 justify-center relative z-10 ">
+              <div className="flex items-end mt-5 justify-center relative z-10 overflow-hidden">
                 <motion.div
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
